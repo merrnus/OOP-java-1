@@ -1,5 +1,24 @@
+
+import java.sql.Connection;
+
 public class Main {
     public static void main(String[] args) {
+
+
+
+
+        // JDBC test - sonra silinecek
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            System.out.println("Conexiune reusita!");
+            conn.close();
+        } catch (Exception e) {
+            System.out.println("Eroare: " + e.getMessage());
+        }
+
+
+
+        // Etapa I kodu
         PlatformaService service = new PlatformaService();
 
         // Instructor
@@ -43,5 +62,71 @@ public class Main {
         service.afiseazaCursuri();
         service.afiseazaCursuriCursant(cursant1);
         service.afiseazaIntrebariQuiz(quiz1);
+
+        // Repository test
+        try {
+            UtilizatorRepository repo = new UtilizatorRepository();
+
+            // database'e yaz
+            repo.save(instructor1);
+            repo.save(cursant1);
+            repo.save(cursant2);
+
+            // database'den oku
+            System.out.println("=== Din baza de date ===");
+            for (Utilizator u : repo.findAll()) {
+                System.out.println(u);
+            }
+        } catch (Exception e) {
+            System.out.println("Eroare: " + e.getMessage());
+        }
+
+        // CursRepository test
+        try {
+            CursRepository cursRepo = new CursRepository();
+
+            // database'e yaz
+            cursRepo.save(curs1);
+            cursRepo.save(curs2);
+
+            // database'den oku
+            System.out.println("=== Cursuri din baza de date ===");
+            for (String c : cursRepo.findAll()) {
+                System.out.println(c);
+            }
+        } catch (Exception e) {
+            System.out.println("Eroare: " + e.getMessage());
+        }
+
+        // InscrierRepository test
+        try {
+            InscrierRepository inscrierRepo = new InscrierRepository();
+
+            inscrierRepo.save(service.getInscrieri().get(0));
+            inscrierRepo.save(service.getInscrieri().get(1));
+            inscrierRepo.save(service.getInscrieri().get(2));
+
+            System.out.println("=== Inscrieri din baza de date ===");
+            for (String i : inscrierRepo.findAll()) {
+                System.out.println(i);
+            }
+        } catch (Exception e) {
+            System.out.println("Eroare: " + e.getMessage());
+        }
+
+        // LectieRepository test
+        try {
+            LectieRepository lectieRepo = new LectieRepository();
+
+            lectieRepo.save(lectie1, curs1.getId());
+            lectieRepo.save(lectie2, curs1.getId());
+
+            System.out.println("=== Lectii din baza de date ===");
+            for (String l : lectieRepo.findAll()) {
+                System.out.println(l);
+            }
+        } catch (Exception e) {
+            System.out.println("Eroare: " + e.getMessage());
+        }
     }
 }

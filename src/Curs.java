@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Curs {
+public class Curs implements Comparable<Curs> {
     private int id;
     private String titlu;
     private Instructor instructor;
@@ -23,6 +23,11 @@ public class Curs {
     public List<Quiz> getQuizuri() { return quizuri; }
     public void adaugaLectie(Lectie l) { lectii.add(l); }
     public void adaugaQuiz(Quiz q) { quizuri.add(q); }
+
+    @Override
+    public int compareTo(Curs other) {
+        return Integer.compare(this.id, other.id); // id'ye göre sıralı
+    }
 
     @Override
     public String toString() {
