@@ -1,3 +1,5 @@
+package model;
+
 public class Inscriere {
     private int id;
     private Cursant cursant;

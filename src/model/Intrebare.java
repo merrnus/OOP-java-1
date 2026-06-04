@@ -1,3 +1,5 @@
+package model;
+
 public class Intrebare {
     private int id;
     private String text;

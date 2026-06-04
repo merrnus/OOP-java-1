@@ -1,3 +1,11 @@
+package service;
+
+import model.*;
+import repository.UtilizatorRepository;
+import repository.CursRepository;
+import repository.InscrierRepository;
+import repository.LectieRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -12,6 +20,25 @@ public class PlatformaService {
         this.utilizatori = new ArrayList<>();
         this.cursuri = new TreeSet<>();
         this.inscrieri = new ArrayList<>();
+        loadFromDatabase(); // Incarca datele din baza de date la initializare
+    }
+
+    // Incarca toate datele din baza de date in memorie
+    private void loadFromDatabase() {
+        try {
+            UtilizatorRepository utilizatorRepo = new UtilizatorRepository();
+            CursRepository cursRepo = new CursRepository();
+            InscrierRepository inscrierRepo = new InscrierRepository();
+
+            // Incarca utilizatori, cursuri si inscrieri
+            utilizatori.addAll(utilizatorRepo.findAll());
+            cursuri.addAll(cursRepo.findAll());
+            inscrieri.addAll(inscrierRepo.findAll());
+
+            System.out.println("Date incarcate din baza de date.");
+        } catch (Exception e) {
+            System.out.println("Eroare la incarcare: " + e.getMessage());
+        }
     }
 
     // 1. ADAUGA UTILIZATOR
@@ -78,20 +105,20 @@ public class PlatformaService {
     // 8. ADAUGA LECTIE LA CURS
     public void adaugaLectie(Curs curs, Lectie lectie) {
         curs.adaugaLectie(lectie);
-        System.out.println("Lectie adaugata: " + lectie.getTitlu() + " la cursul " + curs.getTitlu());
+        System.out.println("model.Lectie adaugata: " + lectie.getTitlu() + " la cursul " + curs.getTitlu());
         audit.log("adaugaLectie");
     }
 
     // 9. ADAUGA QUIZ LA CURS
     public void adaugaQuiz(Curs curs, Quiz quiz) {
         curs.adaugaQuiz(quiz);
-        System.out.println("Quiz adaugat: " + quiz.getTitlu() + " la cursul " + curs.getTitlu());
+        System.out.println("model.Instructor.Quiz adaugat: " + quiz.getTitlu() + " la cursul " + curs.getTitlu());
         audit.log("adaugaQuiz");
     }
 
     // 10. ARATA INTREBARI QUIZ
     public void afiseazaIntrebariQuiz(Quiz quiz) {
-        System.out.println("=== Intrebari Quiz: " + quiz.getTitlu() + " ===");
+        System.out.println("=== Intrebari model.Instructor.Quiz: " + quiz.getTitlu() + " ===");
         for (Intrebare i : quiz.getIntrebari()) {
             System.out.println(i.getText());
         }
@@ -100,5 +127,19 @@ public class PlatformaService {
 
     public List<Inscriere> getInscrieri() {
         return inscrieri;
+    }
+
+    public Utilizator getUtilizatorById(int id) {
+        for (Utilizator u : utilizatori) {
+            if (u.getId() == id) return u;
+        }
+        return null;
+    }
+
+    public Curs getCursById(int id) {
+        for (Curs c : cursuri) {
+            if (c.getId() == id) return c;
+        }
+        return null;
     }
 }
