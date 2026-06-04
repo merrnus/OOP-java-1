@@ -4,6 +4,7 @@ import model.*;
 import repository.*;
 import java.util.Scanner;
 
+// Interfata de tip linie de comanda pentru platforma e-learning
 public class PlatformaCLI {
     private final PlatformaService service;
     private final Scanner scanner;
@@ -19,10 +20,11 @@ public class PlatformaCLI {
         this.inscrierRepo = new InscrierRepository();
     }
 
+    // Porneste bucla principala a meniului
     public void run() {
         int optiune = -1;
         while (optiune != 0) {
-            System.out.println("\n=== Platforma E-Learning ===");
+            System.out.println("\nPLATFORMA E-LEARNING");
             System.out.println("1  - Adauga instructor");
             System.out.println("2  - Adauga cursant");
             System.out.println("3  - Adauga curs");
@@ -52,6 +54,7 @@ public class PlatformaCLI {
         scanner.close();
     }
 
+    // Citeste datele unui instructor si il salveaza in memorie si in baza de date
     private void adaugaInstructor() {
         try {
             System.out.print("ID: ");
@@ -69,6 +72,7 @@ public class PlatformaCLI {
         }
     }
 
+    // Citeste datele unui cursant si il salveaza in memorie si in baza de date
     private void adaugaCursant() {
         try {
             System.out.print("ID: ");
@@ -86,6 +90,7 @@ public class PlatformaCLI {
         }
     }
 
+    // Citeste datele unui curs si il salveaza in memorie si in baza de date
     private void adaugaCurs() {
         try {
             System.out.print("ID curs: ");
@@ -108,6 +113,7 @@ public class PlatformaCLI {
         }
     }
 
+    // Inscrie un cursant la un curs si salveaza inscrierea in baza de date
     private void inscrieCursant() {
         try {
             System.out.print("ID cursant: ");
@@ -128,6 +134,7 @@ public class PlatformaCLI {
         }
     }
 
+    // Marcheaza un curs ca finalizat pentru un cursant
     private void finalizeazaCurs() {
         try {
             System.out.print("ID cursant: ");
@@ -146,6 +153,7 @@ public class PlatformaCLI {
         }
     }
 
+    // Afiseaza cursurile la care este inscris un cursant
     private void afiseazaCursuriCursant() {
         try {
             System.out.print("ID cursant: ");

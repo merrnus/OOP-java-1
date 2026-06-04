@@ -105,20 +105,20 @@ public class PlatformaService {
     // 8. ADAUGA LECTIE LA CURS
     public void adaugaLectie(Curs curs, Lectie lectie) {
         curs.adaugaLectie(lectie);
-        System.out.println("model.Lectie adaugata: " + lectie.getTitlu() + " la cursul " + curs.getTitlu());
+        System.out.println("Lectie adaugata: " + lectie.getTitlu() + " la cursul " + curs.getTitlu());
         audit.log("adaugaLectie");
     }
 
     // 9. ADAUGA QUIZ LA CURS
     public void adaugaQuiz(Curs curs, Quiz quiz) {
         curs.adaugaQuiz(quiz);
-        System.out.println("model.Instructor.Quiz adaugat: " + quiz.getTitlu() + " la cursul " + curs.getTitlu());
+        System.out.println("Quiz adaugat: " + quiz.getTitlu() + " la cursul " + curs.getTitlu());
         audit.log("adaugaQuiz");
     }
 
     // 10. ARATA INTREBARI QUIZ
     public void afiseazaIntrebariQuiz(Quiz quiz) {
-        System.out.println("=== Intrebari model.Instructor.Quiz: " + quiz.getTitlu() + " ===");
+        System.out.println(" INTREBARI QUIZ " + quiz.getTitlu() + " ===");
         for (Intrebare i : quiz.getIntrebari()) {
             System.out.println(i.getText());
         }

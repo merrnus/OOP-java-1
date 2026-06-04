@@ -3,8 +3,10 @@ import service.PlatformaService;
 import service.PlatformaCLI;
 import java.sql.Connection;
 
+// Punctul de intrare al aplicatiei Platforma E-Learning
 public class Main {
     public static void main(String[] args) {
+
         // Verificare conexiune la baza de date
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
